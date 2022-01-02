@@ -1,2 +1,11 @@
 # Google App Engine generated folder
 appengine-generated/
+
+# JetBrains
+/.idea/
+
+# VSCode
+/.vscode/
+
+# MacOS
+.DS_Store
