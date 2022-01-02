@@ -1,0 +1,21 @@
+#isBlendColorBurnSupported {
+  color: darkred;
+  font-weight: 600;
+  display: none;
+}
+#isBlendColorBurnSupported::before {
+  content: '× ';
+}
+#isBlendColorBurnSupported.supported {
+  color: darkgreen;
+}
+#isBlendColorBurnSupported.supported::before {
+  content: '✓ ';
+}
+#isBlendColorBurnSupported.supported > span {
+  display: none;
+}
+
+svg {
+  margin: 1em;
+}

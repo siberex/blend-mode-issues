@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - CSS mix-blend-mode cross-browser issues</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<p>
+  CSS <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/blend-mode">blend-mode</a> demo.
+  This will render differently in Chrome 96 or Safari 15 on Mac OS with retina (wide-gamut / P3) display. Firefox is not affected for some reason.
+</p>  
+<p>
+  Firefox and Chrome Windows are rendering black (as expected), while both Chrome and Safari on Mac OS P3 are rendering <code>rgb(115,46,30)</code> for <code>multiply</code> and <code>rgb(126,46,29)</code> for <code>darken</code>.<br>
+  Also they render red on white <code>difference</code> as <code>rgb(0,208,223)</code> instead of cyan.
+</p>
+<p>P3 colors are rendered as expected (supported only in Safari atm).</p>
+
+<main>
+
+  <section>
+    <code>mix-blend-mode: multiply</code><br>
+    <code>255 × 0 = (0,0,0) expected</code>
+    <div class="preview">
+      <div></div>
+      <div class="multiply"></div>
+    </div>
+  </section>
+
+  <section>
+    <code>mix-blend-mode: darken</code><br>
+    <code>min(255, 0) = (0,0,0) expected</code>
+    <div class="preview">
+      <div></div>
+      <div class="darken"></div>
+    </div>
+  </section>
+
+  <section>
+    <code>mix-blend-mode: difference</code><br>
+    <code>|white - red| = (0,255,255)</code>
+    <div class="preview difference">
+      <div></div>
+      <div></div>
+    </div>
+  </section>
+
+  
+  <section class="p3">
+    <code>P3 mix-blend-mode: multiply</code>
+    <div class="preview">
+      <div></div>
+      <div class="multiply"></div>
+    </div>
+  </section>
+
+  <section class="p3">
+    <code>P3 mix-blend-mode: darken</code>
+    <div class="preview">
+      <div></div>
+      <div class="darken"></div>
+    </div>
+  </section>
+
+  <section class="p3">
+    <code>P3 mix-blend-mode: difference</code>
+    <div class="preview difference">
+      <div></div>
+      <div></div>
+    </div>
+  </section>
+</main>
+<!-- partial -->
+  
+</body>
+</html>

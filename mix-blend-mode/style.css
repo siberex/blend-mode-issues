@@ -1,0 +1,64 @@
+:root {
+  /* CSS variables have better support than mix-blend-mode, so it is definitely safe to use CSS variables for that demo without any fallbacks */
+  --box: 200px;
+  --sqrt2: 1.414213562373;
+  --shift: calc(var(--box) - var(--box) / var(--sqrt2));
+}
+
+body {
+  font-family: sans-serif;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+main > section {
+  margin: 1em;
+}
+
+.preview {
+  width: calc(0px + var(--box) + var(--shift));
+  height: calc(var(--box) + var(--shift));
+  overflow: visible;
+  
+  background: rgb(255, 255, 255);
+  position: relative;
+}
+.preview > div {
+  width: var(--box);
+  height: var(--box); 
+  position: absolute;
+}
+.preview > div:nth-child(1) {
+  background: rgb(255, 0, 0);
+  top: 0;
+  left: 0;
+}
+.preview > div:nth-child(2) {
+  background: rgb(0, 255, 255);
+  top: var(--shift);
+  left: var(--shift);
+}
+
+.multiply {
+  mix-blend-mode: multiply;
+}
+.darken {
+  mix-blend-mode: darken;
+}
+.difference > div:nth-child(2) {
+    background: rgb(255, 0, 0);
+    mix-blend-mode: difference;
+}
+
+.p3 > .preview > div:nth-child(1) {
+  background: color(display-p3 1 0 0);
+}
+.p3 > .preview > div:nth-child(2) {
+  background: color(display-p3 0 1 1);
+}
+.p3 > .difference > div:nth-child(2) {
+  background: color(display-p3 1 0 0);
+}
