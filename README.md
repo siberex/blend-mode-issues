@@ -2,11 +2,46 @@
 
 Demo for cross-browser issues with [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode) and [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feBlend) [blend modes](https://developer.mozilla.org/en-US/docs/Web/CSS/blend-mode).
 
+
 # CodePen
 
 - [SVG feBlend](https://codepen.io/siberex/pen/rNGdYGe)
 
-- [CSS: [mix-blend-mode]](https://codepen.io/siberex/pen/gOGexLV?editors=1100)
+- [CSS: mix-blend-mode](https://codepen.io/siberex/pen/gOGexLV)
+
+
+# JS feature detection
+
+```js
+function isMixBlendModeSupported() {
+  var result = false;
+  try {
+    // Narrow filter down to exclude browsers without CSS @supports API:
+    result = window.CSS.supports('mix-blend-mode', 'difference');
+
+    // Exclude Chrome-based browsers when P3 gamut is supported (Mac OS retina, for example),
+    // because colors are rendered wrong, when filter product should be rgb(0, 255, 255),
+    // it is rendered as rgb(0, 207, 223).
+    // Ref.: https://github.com/siberex/blend-mode-issues
+    if (typeof window['chrome'] !== 'undefined'
+          && window.matchMedia("(color-gamut: p3)").matches) {
+      result = false;
+    }
+  } catch(e) {}
+  return result;
+}
+
+// Ref.: https://github.com/Modernizr/Modernizr/pull/531
+function isSvgFilterSupported() {
+  var result = false;
+  try {
+    result = typeof SVGFEBlendElement !== undefined &&
+      SVGFEBlendElement.SVG_FEBLEND_MODE_DIFFERENCE !== undefined;
+  } catch(e) {}
+  return result;
+}
+```
+
 
 # Screenshots
 
